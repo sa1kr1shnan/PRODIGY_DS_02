@@ -1,0 +1,74 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+from google.colab import files
+uploaded = files.upload()
+
+fd = pd.read_csv('Train(1).csv')
+
+fd.head()
+
+fd.info()
+
+sns.barplot(data = fd,x = 'Survived',y = 'Sex')
+
+sns.violinplot(data = fd,x = 'Survived',y = 'Pclass')
+
+sns.barplot(data = fd,x = 'Survived',y = 'Pclass')
+
+fd.describe()
+
+fd.describe(include = object)
+
+fd['Age'] = fd['Age'].astype(object)
+
+fd['Survived'] = fd['Survived'].astype(object)
+
+fd['Pclass'] = fd['Pclass'].astype(object)
+
+sns.catplot(data=fd, x="Survived", y="Pclass", hue="Sex", kind="swarm")
+
+fd = fd.drop('Ticket',axis = 1)
+
+fd.isnull().sum()
+
+rint(fd['Age'].isnull().sum())
+print(fd['Age'].isnull().sum() / len(fd) * 100, "% missing")
+
+fd = fd.drop('Name',axis = 1)
+
+rt = fd.copy()
+
+rt.head()
+
+plt.subplots(figsize=(8, 8))
+df_2dhist = pd.DataFrame({
+    x_label: grp['Pclass'].value_counts()
+    for x_label, grp in rt.groupby('Survived')
+})
+sns.heatmap(df_2dhist, cmap='viridis')
+plt.xlabel('Survived')
+_ = plt.ylabel('Pclass')
+
+sns.barplot(data = fd,x= 'Fare',y = 'Embarked')
+
+sns.barplot(data = fd,x= 'Pclass',y = 'Fare')
+
+sns.barplot(data = fd,x= 'Sex',y = 'Fare')
+
+sns.barplot(data = fd,x= 'Pclass',y = 'Sex')
+
+sns.catplot(data = fd,x= 'Pclass',y = 'Embarked',hue = 'Sex')
+rt['Fare'].plot(kind='line', figsize=(8, 4), title='Fare')
+plt.gca().spines[['top', 'right']].set_visible(False)
+
+plt.subplots(figsize=(8, 8))
+df_2dhist = pd.DataFrame({
+    x_label: grp['Sex'].value_counts()
+    for x_label, grp in rt.groupby('Pclass')
+})
+sns.heatmap(df_2dhist, cmap='viridis')
+plt.xlabel('Pclass')
+_ = plt.ylabel('Sex')
